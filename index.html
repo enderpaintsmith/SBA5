@@ -1,78 +1,173 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Personal Blog</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#203d32">
+  <title>Fieldnotes — A Personal Journal</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
 
-    <header>
-        <h1>My Personal Blog</h1>
-        <p>Write, save, and manage your thoughts.</p>
-    </header>
+  <header class="site-header">
+    <nav class="top-nav" aria-label="Main navigation">
+      <a href="#" class="brand">
+        <span class="brand-mark">✳</span>
+        FIELDNOTES<span class="brand-dot">.</span>
+      </a>
 
-    <main>
-        <!-- Post Form -->
-        <section class="form-section">
-            <h2 id="form-heading">Create a New Post</h2>
+      <div class="nav-actions">
+        <a href="#write" class="nav-link">Write</a>
+        <a href="#journal" class="nav-link">Journal</a>
+        <button id="theme-toggle" class="theme-toggle"
+          type="button" aria-label="Switch theme">☾</button>
+      </div>
+    </nav>
 
-            <form id="post-form" novalidate>
-                <div class="form-group">
-                    <label for="post-title">Post Title</label>
-                    <input
-                        type="text"
-                        id="post-title"
-                        name="title"
-                        placeholder="Enter your post title"
-                    >
-                    <span id="title-error" class="error-message"></span>
-                </div>
+    <div class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">A PERSONAL SPACE FOR EVERYTHING IN BETWEEN</p>
+        <h1>A place to<br><em>place</em> your thoughts.</h1>
+        <p class="hero-description">
+          Small moments of joy and curiosity; ideas that impact; fleeting memories, plans, and dreams, and reflections; fantasies, stories, beyond!
+            One place to collect them all
+        </p>
+        <a href="#write" class="hero-link">Start writing <span>↗</span></a>
+      </div>
 
-                <div class="form-group">
-                    <label for="post-content">Post Content</label>
-                    <textarea
-                        id="post-content"
-                        name="content"
-                        rows="8"
-                        placeholder="Write your post here..."
-                    ></textarea>
-                    <span id="content-error" class="error-message"></span>
-                </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="art-sun"></div>
+        <div class="art-hill hill-back"></div>
+        <div class="art-hill hill-front"></div>
+        <span class="art-caption">NOTES FROM THE EVERYDAY — VOL. 01</span>
+      </div>
+    </div>
+  </header>
 
-                <div class="form-buttons">
-                    <button type="submit" id="submit-button">
-                        Publish Post
-                    </button>
+  <main class="main-layout">
 
-                    <button
-                        type="button"
-                        id="cancel-button"
-                        class="cancel-button hidden"
-                    >
-                        Cancel Edit
-                    </button>
-                </div>
-            </form>
-        </section>
+    <!-- CREATE / EDIT FORM -->
+    <aside class="editor-panel" id="write">
+      <div class="section-kicker"><span class="kicker-dot"></span> THE WRITING DESK</div>
+      <h2 id="form-heading">A new entry<span class="accent">.</span></h2>
+      <p class="section-description">
+        What's on your mind today?
+      </p>
 
-        <!-- Posts Section -->
-        <section class="posts-section">
-            <h2>My Posts</h2>
+      <form id="post-form" novalidate>
+        <div class="form-group">
+          <label for="post-title">01 / TITLE</label>
+          <input
+            type="text"
+            id="post-title"
+            name="title"
+            placeholder="Give this moment a name..."
+            maxlength="100"
+            required
+            aria-describedby="title-error"
+          >
+          <span id="title-error" class="error-message" role="alert"></span>
+        </div>
 
-            <div id="posts-container">
-                <!-- Posts will be added here dynamically -->
-            </div>
+        <div class="form-group">
+          <label for="post-content">02 / YOUR THOUGHTS</label>
+          <textarea
+            id="post-content"
+            name="content"
+            rows="9"
+            placeholder="Start with the first line... The first word... The first thought!"
+            required
+            aria-describedby="content-error"
+          ></textarea>
+          <span id="content-error" class="error-message" role="alert"></span>
+          <div class="field-meta">
+            <span>This canvas is blank: let your stories unfold</span>
+            <span id="word-count">0 words</span>
+          </div>
+        </div>
 
-            <p id="empty-message">No posts yet. Create your first post!</p>
-        </section>
-    </main>
+        <button type="submit" id="submit-button" class="publish-btn">
+          Publish entry <span>↗</span>
+        </button>
 
-    <footer>
-        <p>&copy; 2026 My Personal Blog</p>
-    </footer>
+        <button type="button" id="cancel-button"
+          class="cancel-btn hidden">Cancel editing</button>
 
-    <script src="script.js"></script>
+        <p class="storage-note">✳ Saved privately in this browser</p>
+      </form>
+
+      <div class="editor-quote">
+        <span class="quote-symbol">“</span>
+        <p>Detail. Describe. Divest.</p>
+        <span class="quote-author">— MARY OLIVER</span>
+      </div>
+    </aside>
+
+    <!-- POSTS -->
+    <section class="journal-section" id="journal">
+      <div class="journal-heading">
+        <div>
+          <div class="section-kicker">
+            <span class="kicker-dot"></span> THE ARCHIVE
+          </div>
+          <h2>Your entries<span class="accent">.</span></h2>
+          <p class="section-description">
+            A collection of things to remember
+          </p>
+        </div>
+        <span id="post-count" class="post-count">00 ENTRIES</span>
+      </div>
+
+      <div class="toolbar">
+        <div class="search-wrap">
+          <span aria-hidden="true">⌕</span>
+          <input type="search" id="search-input"
+            placeholder="Search your thoughts..."
+            aria-label="Search posts">
+        </div>
+
+        <select id="sort-select" aria-label="Sort posts">
+          <option value="newest">Newest first</option>
+          <option value="oldest">Oldest first</option>
+          <option value="az">Title A–Z</option>
+          <option value="za">Title Z–A</option>
+        </select>
+
+        <div class="view-toggle" aria-label="Display options">
+          <button id="grid-view" class="view-btn active"
+            type="button" aria-label="Grid view"
+            aria-pressed="true">▦</button>
+          <button id="list-view" class="view-btn"
+            type="button" aria-label="List view"
+            aria-pressed="false">☷</button>
+        </div>
+      </div>
+
+      <div id="posts-container" class="posts-grid"></div>
+
+      <div id="empty-message" class="empty-state">
+        <span class="empty-symbol">✳</span>
+        <h3>A blank page is a beginning.</h3>
+        <p>Your first entry is waiting to be written.</p>
+        <a href="#write">Write something ↗</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <span>✳ FIELDNOTES — A PERSONAL JOURNAL</span>
+    <span>MADE FOR THE MOMENTS IN BETWEEN.</span>
+    <span id="footer-year"></span>
+  </footer>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
 </body>
 </html>

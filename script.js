@@ -14,7 +14,7 @@ let editingPostId = null;
 // =========================
 // DOM Elements
 // =========================
-
+const searchInput = document.getElementById("search-input");
 const postForm = document.getElementById("post-form");
 const postTitle = document.getElementById("post-title");
 const postContent = document.getElementById("post-content");
@@ -65,10 +65,19 @@ function renderPosts() {
     emptyMessage.style.display = "none";
 
     // Create the HTML for each post.
-    posts.forEach(function (post) {
-        const postElement = document.createElement("article");
-        postElement.classList.add("post");
+   const searchTerm = searchInput.value.toLowerCase().trim();
 
+const filteredPosts = posts.filter(function (post) {
+    return (
+        post.title.toLowerCase().includes(searchTerm) ||
+        post.content.toLowerCase().includes(searchTerm)
+    );
+});
+
+filteredPosts.forEach(function (post) {
+        const postElement = document.createElement("article");
+        postElement.classList.add("post-card");
+        
         const titleElement = document.createElement("h3");
         titleElement.textContent = post.title;
 
@@ -129,13 +138,13 @@ function validateForm() {
 
     // Validate title.
     if (title === "") {
-        titleError.textContent = "Please enter a title for your post.";
+        titleError.textContent = "Give your post a name | something to remember your words by";
         isValid = false;
     }
 
     // Validate content.
-    if (content === "") {
-        contentError.textContent = "Please enter some content for your post.";
+    if (content === "")
+        contentError.textContent = "It all starts with one word!";
         isValid = false;
     }
 
@@ -147,8 +156,10 @@ function validateForm() {
 // Clear Form
 // =========================
 
+
 function clearForm() {
     postTitle.value = "";
+    updateWordCount();
     postContent.value = "";
 
     titleError.textContent = "";
@@ -156,10 +167,18 @@ function clearForm() {
 
     editingPostId = null;
 
-    formHeading.textContent = "Create a New Post";
-    submitButton.textContent = "Publish Post";
+    formHeading.innerHTML = 'A new entry<span class="accent">.</span>';
+    submitButton.innerHTML = 'Put it into words <span>↗</span>';
     cancelButton.classList.add("hidden");
+
+    // Reset the word counter.
+    const wordCount = document.getElementById("word-count");
+
+    if (wordCount) {
+        wordCount.textContent = "0 words";
+    }
 }
+
 
 
 // =========================
@@ -242,19 +261,20 @@ postsContainer.addEventListener("click", function (event) {
         });
 
         if (!postToEdit) {
-            return;
+            return; 
         }
 
         // Populate the form with the existing post.
         postTitle.value = postToEdit.title;
         postContent.value = postToEdit.content;
+        updateWordCount();
 
         // Track which post is being edited.
         editingPostId = postId;
 
         // Change the form appearance.
-        formHeading.textContent = "Edit Post";
-        submitButton.textContent = "Update Post";
+        formHeading.textContent = "Edit Entry";
+        submitButton.textContent = "Save Changes";
         cancelButton.classList.remove("hidden");
 
         // Clear any old errors.
@@ -318,7 +338,7 @@ postsContainer.addEventListener("click", function (event) {
 // Cancel Editing
 // =========================
 
-cancelButton.addEventListener("click", function () {
+cancelButton.addEventListener("click", f function () {
     clearForm();
 });
 
@@ -339,10 +359,31 @@ postContent.addEventListener("input", function () {
     }
 });
 
+// =========================
+// Word Counter
+// =========================
+
+const wordCount = document.getElementById("word-count");
+
+function updateWordCount() {
+    const content = postContent.value.trim();
+
+    if (content === "") {
+        wordCount.textContent = "0 words";
+    } else {
+        const words = content.split(/\s+/);
+        wordCount.textContent = words.length + " words";
+    }
+}
+
+postContent.addEventListener("input", updateWordCount);
 
 // =========================
 // Initial Page Load
 // =========================
-
+x
 // Render any posts that were saved in localStorage.
+searchInput.addEventListener("input", function () {
+    renderPosts();
+});
 renderPosts();
