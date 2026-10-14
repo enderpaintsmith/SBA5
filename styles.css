@@ -858,3 +858,40 @@ body.dark-mode {
     background-color: #192820 !important;
     color: #e8e5d9;
 }
+/* Larger Search Posts Input */
+
+#search-input {
+    width: 500px !important;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+/* Archive toolbar layout */
+
+.toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.search-wrap {
+    flex: 1 1 350px;
+    min-width: 250px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-wrap #search-input {
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+#sort-select,
+.view-toggle {
+    flex-shrink: 0;
+}
