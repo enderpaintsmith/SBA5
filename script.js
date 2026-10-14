@@ -386,3 +386,25 @@ searchInput.addEventListener("input", function () {
     renderPosts();
 });
 renderPosts();
+
+// Dark Mode
+
+const themeToggle = document.getElementById("theme-toggle");
+
+// Load saved theme when the page opens
+const savedTheme = localStorage.getItem("fieldnotesTheme");
+
+if (savedTheme === "dark") {
+    document.body.classList.add("dark-mode");
+}
+
+// Switch themes when the button is clicked
+themeToggle.addEventListener("click", function () {
+    document.body.classList.toggle("dark-mode");
+
+    if (document.body.classList.contains("dark-mode")) {
+        localStorage.setItem("fieldnotesTheme", "dark");
+    } else {
+        localStorage.setItem("fieldnotesTheme", "light");
+    }
+});
