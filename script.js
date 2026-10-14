@@ -137,16 +137,15 @@ function validateForm() {
     const content = postContent.value.trim();
 
     // Validate title.
-    if (title === "") {
-        titleError.textContent = "Give your post a name | something to remember your words by";
-        isValid = false;
-    }
+if (title === "") {
+    titleError.textContent = "Every story needs a name. Give yours a title.";
+    isValid = false;
+}
 
-    // Validate content.
-    if (content === "")
-        contentError.textContent = "It all starts with one word!";
-        isValid = false;
-    }
+if (content === "") {
+    contentError.textContent = "Start with a word, a thought, anything at all!";
+    isValid = false;
+}
 
     return isValid;
 }
@@ -338,7 +337,7 @@ postsContainer.addEventListener("click", function (event) {
 // Cancel Editing
 // =========================
 
-cancelButton.addEventListener("click", f function () {
+cancelButton.addEventListener("click", function () {
     clearForm();
 });
 
@@ -381,7 +380,7 @@ postContent.addEventListener("input", updateWordCount);
 // =========================
 // Initial Page Load
 // =========================
-x
+updateWordCount();
 // Render any posts that were saved in localStorage.
 searchInput.addEventListener("input", function () {
     renderPosts();
